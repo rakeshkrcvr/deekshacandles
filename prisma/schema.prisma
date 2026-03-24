@@ -1,0 +1,186 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+///////////////////////
+// 👤 USERS
+///////////////////////
+model User {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  password  String?
+  createdAt DateTime @default(now())
+
+  orders  Order[]
+  reviews Review[]
+}
+
+///////////////////////
+// 📂 CATEGORIES
+///////////////////////
+model Category {
+  id        String   @id @default(cuid())
+  name      String
+  slug      String   @unique
+  createdAt DateTime @default(now())
+
+  products Product[]
+}
+
+///////////////////////
+// 🛍️ PRODUCTS
+///////////////////////
+model Product {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  description String
+  price       Float
+  discount    Float?
+  stock       Int      @default(0)
+  createdAt   DateTime @default(now())
+
+  offerTag            String?
+  tripleTreatAlert    String?
+  countdownExpiry     DateTime?
+  specifications      Json?
+  deliveryEstimate    String?
+  badges              String[]
+  imageUrls           String[]
+
+  categoryId String?
+  category   Category? @relation(fields: [categoryId], references: [id])
+
+  images   ProductImage[]
+  details  ProductDetail[]
+  reviews  Review[]
+  orderItems OrderItem[]
+}
+
+///////////////////////
+// 🖼️ PRODUCT IMAGES
+///////////////////////
+model ProductImage {
+  id        String  @id @default(cuid())
+  url       String
+  productId String
+
+  product Product @relation(fields: [productId], references: [id])
+}
+
+///////////////////////
+// 📄 PRODUCT DETAILS
+///////////////////////
+model ProductDetail {
+  id        String @id @default(cuid())
+  label     String
+  value     String
+  productId String
+
+  product Product @relation(fields: [productId], references: [id])
+}
+
+///////////////////////
+// ⭐ REVIEWS
+///////////////////////
+model Review {
+  id        String   @id @default(cuid())
+  rating    Int
+  comment   String
+  createdAt DateTime @default(now())
+
+  userId    String
+  productId String
+
+  user    User    @relation(fields: [userId], references: [id])
+  product Product @relation(fields: [productId], references: [id])
+}
+
+///////////////////////
+// 🛒 ORDERS
+///////////////////////
+model Order {
+  id        String   @id @default(cuid())
+  total     Float
+  status    String   @default("pending")
+  createdAt DateTime @default(now())
+
+  userId String
+  user   User @relation(fields: [userId], references: [id])
+
+  items     OrderItem[]
+  address   Address?
+
+  paymentId         String?  // Razorpay Payment ID
+  shiprocketOrderId String?  // Shiprocket Order ID
+  shipmentStatus    String?  // Shiprocket Status
+}
+
+///////////////////////
+// 📦 ORDER ITEMS
+///////////////////////
+model OrderItem {
+  id        String @id @default(cuid())
+  quantity  Int
+  price     Float
+
+  orderId   String
+  productId String
+
+  order   Order   @relation(fields: [orderId], references: [id])
+  product Product @relation(fields: [productId], references: [id])
+}
+
+///////////////////////
+// 🏠 ADDRESS
+///////////////////////
+model Address {
+  id        String @id @default(cuid())
+  fullName  String
+  phone     String
+  city      String
+  state     String
+  pincode   String
+  address   String
+
+  orderId String @unique
+  order   Order  @relation(fields: [orderId], references: [id])
+}
+
+///////////////////////
+// 🎁 OFFERS / COUPONS
+///////////////////////
+model Coupon {
+  id          String   @id @default(cuid())
+  code        String   @unique
+  discount    Float
+  type        String   // percentage / flat
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+}
+
+///////////////////////
+// 📑 STATIC CONTENT
+///////////////////////
+model Content {
+  id    String @id @default(cuid())
+  title String
+  body  String
+}
+
+///////////////////////
+// ⚙️ STORE SETTINGS
+///////////////////////
+model StoreSettings {
+  id               String @id @default("global") // Keep a single row
+  razorpayKeyId    String?
+  razorpaySecret   String?
+  shiprocketEmail  String?
+  shiprocketPassword String?
+}

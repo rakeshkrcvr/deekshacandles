@@ -1,0 +1,28 @@
+{
+  "manifest_version": 3,
+  "name": "Deeksha Candles Integration Auto-Setup",
+  "version": "1.0",
+  "description": "Automatically captures Razorpay and Shiprocket API credentials for the Deeksha Candles Admin.",
+  "permissions": ["tabs", "scripting", "activeTab"],
+  "host_permissions": [
+    "*://localhost:*/*",
+    "*://dashboard.razorpay.com/*",
+    "*://app.shiprocket.in/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://localhost:*/*"],
+      "js": ["content-local.js"]
+    },
+    {
+      "matches": [
+        "*://dashboard.razorpay.com/*",
+        "*://app.shiprocket.in/*"
+      ],
+      "js": ["content-target.js"]
+    }
+  ]
+}

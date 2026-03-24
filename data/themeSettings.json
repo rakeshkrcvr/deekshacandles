@@ -1,0 +1,117 @@
+{
+  "navbar": [
+    {
+      "id": "1",
+      "label": "Home",
+      "url": "/"
+    },
+    {
+      "id": "2",
+      "label": "Mini Candle",
+      "url": "/products?category=mini"
+    },
+    {
+      "id": "3",
+      "label": "New Arrivals",
+      "url": "/products?collection=new"
+    },
+    {
+      "id": "4",
+      "label": "All Products",
+      "url": "/products"
+    }
+  ],
+  "footer": {
+    "shop": [
+      {
+        "id": "1",
+        "label": "Home",
+        "url": "/"
+      },
+      {
+        "id": "2",
+        "label": "Mini Candle",
+        "url": "/products?category=mini"
+      },
+      {
+        "id": "3",
+        "label": "New Arrivals",
+        "url": "/products?collection=new"
+      },
+      {
+        "id": "4",
+        "label": "All Products",
+        "url": "/products"
+      },
+      {
+        "id": "5",
+        "label": "All Collections",
+        "url": "/collections"
+      }
+    ],
+    "company": [
+      {
+        "id": "1",
+        "label": "All collections",
+        "url": "/collections"
+      },
+      {
+        "id": "2",
+        "label": "Gifts",
+        "url": "/products?category=gifts"
+      },
+      {
+        "id": "3",
+        "label": "Jelly Candles",
+        "url": "/products?category=jelly"
+      },
+      {
+        "id": "4",
+        "label": "Scented Candles",
+        "url": "/products?category=scented"
+      }
+    ],
+    "legal": [
+      {
+        "id": "1",
+        "label": "Search",
+        "url": "/search"
+      },
+      {
+        "id": "2",
+        "label": "About Us test",
+        "url": "/pages/About-Us"
+      },
+      {
+        "id": "3",
+        "label": "Terms and Conditions",
+        "url": "/pages/Terms%20and%20Conditions"
+      },
+      {
+        "id": "4",
+        "label": "Shipping Policy",
+        "url": "/pages/Shipping%20Policy"
+      },
+      {
+        "id": "5",
+        "label": "Returns Refunds and Cancellations Policy",
+        "url": "/pages/Returns%20Refunds%20and%20Cancellations%20Policy"
+      },
+      {
+        "id": "6",
+        "label": "Blogs",
+        "url": "/blogs"
+      },
+      {
+        "id": "7",
+        "label": "Contact Us",
+        "url": "/pages/Contact%20Us"
+      }
+    ]
+  },
+  "contact": {
+    "phone": "+91-9971459984",
+    "email": "deekshachauhancandles@gmail.com",
+    "announcement": "✨ FREE SHIPPING ON PREPAID ORDERS | ORGANIC SOY WAX"
+  }
+}
